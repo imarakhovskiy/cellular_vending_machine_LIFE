@@ -1,22 +1,33 @@
 import { createSquareMatrix, aliveNeighboursCount } from './helpers'
+import CustomSet from './Set'
 
 export default class Field {
   constructor(size) {
     this.sizes = size
     this.gameField = createSquareMatrix(size)
+    this.gameFieldConfigurations = new CustomSet()
     this.domNode = document.getElementById('game_area')
   }
 
   get currentState() {
     return this.gameField
   }
-  
+
   set newState(newState) {
     this.gameField = newState
   }
 
   get size() {
     return this.sizes
+  }
+
+  get nextAreaState() {
+    return this.gameField.map((row, i, field) =>
+      row.map((value, j) => {
+        let neighboursCount = aliveNeighboursCount(i, j, field)
+        return value ? neighboursCount === 2 || neighboursCount === 3 : neighboursCount === 3
+      })
+    )
   }
 
   initGlider(glider, startPoint) {
@@ -33,6 +44,7 @@ export default class Field {
       ...linesWithGlider,
       ...oldField.slice(startPoint.y + glider.size)
     ]
+    this.gameFieldConfigurations.add(this.gameField)
   }
 
   createGameAreaInDOM() {
@@ -49,14 +61,8 @@ export default class Field {
   }
 
   updateGameArea() {
-    this.gameField = this.gameField.map((row, i, field) =>
-      row.map((value, j) => {
-        let neighboursCount = aliveNeighboursCount(i, j, field)
-        return value
-          ? neighboursCount === 2 || neighboursCount === 3
-          : neighboursCount === 3
-      })
-    )
+    this.gameField = this.nextAreaState
+    this.gameFieldConfigurations.add(this.gameField)
   }
 
   updateGameAreaOnPage() {
@@ -65,5 +71,19 @@ export default class Field {
         this.domNode.children[i].children[j].style.backgroundColor = val ? 'black' : 'white'
       })
     })
+  }
+  
+  showGameEndMessage() {
+    let gameEndMessageWrapper = document.createElement('div')
+    let gameEndMessage = document.createElement('h2')
+    let gameEndMessageText = document.createTextNode("Game over! Refresh page to restart")
+    
+    gameEndMessage.classList.add("gameEndMessage")
+    gameEndMessageWrapper.classList.add('gameEndMessageWrapper')
+  
+    gameEndMessage.append(gameEndMessageText)
+    gameEndMessageWrapper.append(gameEndMessage)
+    
+    this.domNode.prepend(gameEndMessageWrapper)
   }
 }

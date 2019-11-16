@@ -8,18 +8,26 @@ export default function main() {
   let glider = new Glider()
   gameArea.createGameAreaInDOM()
 
-  const maxStartPoint = FIELD_SIZE - glider.size
-  const startX = getRandomInt(maxStartPoint)
-  const startY = getRandomInt(maxStartPoint)
-  let startPoint = { x: startX, y: startY }
-
   glider.generateGlider()
+  let startPoint = calcStartPoint(glider.size, FIELD_SIZE)
   gameArea.initGlider(glider, startPoint)
   gameArea.updateGameAreaOnPage()
-  
-  setTimeout(function update() {
-    gameArea.updateGameArea();
-    gameArea.updateGameAreaOnPage()
-    setTimeout(update, 300)
+
+  let timedId = setTimeout(function update() {
+    if (!gameArea.gameFieldConfigurations.has(gameArea.nextAreaState)) {
+      gameArea.updateGameArea()
+      gameArea.updateGameAreaOnPage()
+      setTimeout(update, 10)
+    } else {
+      clearInterval(timedId)
+      gameArea.showGameEndMessage()
+    }
   }, 0)
+}
+
+function calcStartPoint(gliderSize, fieldSize) {
+  const maxStartPoint = fieldSize - gliderSize
+  const startX = getRandomInt(maxStartPoint)
+  const startY = getRandomInt(maxStartPoint)
+  return { x: startX, y: startY }
 }

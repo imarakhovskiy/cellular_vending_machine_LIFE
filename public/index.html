@@ -4,14 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <title>React App</title>
+    <title>Life</title>
   </head>
   <body>
     <div id="root"></div>
     <div class="gameContainer">
+      <h1>Welcome to the "Life" game!</h1>
       <table class="gameArea">
-        <tbody id="game_area"/>
+        <tbody id="game_area" />
       </table>
+      <label class="timeout-input__label" for="timeout_input">
+        Updating timeout:
+        <input
+          value="300"
+          id="timeout_input"
+          type="number"
+          placeholder="Enter updating frequency in ms"
+          class="timeout__input"
+          autofocus
+        />
+      </label>
+      <button class="timeout_submit" type="submit" id="timeout_submit">Set timeout</button>
     </div>
   </body>
 </html>
