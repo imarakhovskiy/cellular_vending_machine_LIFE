@@ -34,3 +34,10 @@ export function aliveNeighboursCount(yCoordinate, xCoordinate, field) {
     return field[neighY][neighX] ? accum + 1 : accum
   }, 0)
 }
+
+export function calcStartPoint(gliderSize, fieldSize) {
+  const maxStartPoint = fieldSize - gliderSize
+  const startX = getRandomInt(maxStartPoint)
+  const startY = getRandomInt(maxStartPoint)
+  return { x: startX, y: startY }
+}

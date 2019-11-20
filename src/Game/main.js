@@ -1,21 +1,17 @@
-import Glider from './Glider'
 import Field from './Field'
-import { getRandomInt, getValid } from './helpers'
-import { FIELD_SIZE } from './constants'
+import { getValid } from './helpers'
+import { FIELD_SIZE, DEFAULT_TIMEOUT_VALUE } from './constants'
 
 export default function main() {
   const input = document.getElementById('timeout_input')
   
-  let timeout = 300
+  let timeout = DEFAULT_TIMEOUT_VALUE
   let gameTimerId
 
   let gameArea = new Field(FIELD_SIZE)
-  let glider = new Glider()
   gameArea.createGameAreaInDOM()
-
-  glider.generateGlider()
-  const startPoint = calcStartPoint(glider.size, FIELD_SIZE)
-  gameArea.initGlider(glider, startPoint)
+  
+  gameArea.initRandomField()
   gameArea.updateGameAreaOnPage()
 
   addTimeoutChangeHandler()
@@ -63,11 +59,4 @@ export default function main() {
   function addTimeoutChangeHandler() {
     input.addEventListener('keyup', onTimeoutChange)
   }
-}
-
-function calcStartPoint(gliderSize, fieldSize) {
-  const maxStartPoint = fieldSize - gliderSize
-  const startX = getRandomInt(maxStartPoint)
-  const startY = getRandomInt(maxStartPoint)
-  return { x: startX, y: startY }
 }
