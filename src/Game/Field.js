@@ -73,10 +73,10 @@ export default class Field {
     })
   }
   
-  showGameEndMessage() {
+  showMessage(message) {
     let gameEndMessageWrapper = document.createElement('div')
     let gameEndMessage = document.createElement('h2')
-    let gameEndMessageText = document.createTextNode("Game over! Refresh page to restart")
+    let gameEndMessageText = document.createTextNode(message)
     
     gameEndMessage.classList.add("gameEndMessage")
     gameEndMessageWrapper.classList.add('gameEndMessageWrapper')

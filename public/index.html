@@ -7,16 +7,14 @@
     <title>Life</title>
   </head>
   <body>
-    <div id="root"></div>
     <div class="gameContainer">
       <h1>Welcome to the "Life" game!</h1>
       <table class="gameArea">
-        <tbody id="game_area" />
+        <tbody id="game_area"></tbody>
       </table>
       <label class="timeout-input__label" for="timeout_input">
         Updating timeout:
         <input
-          value="300"
           id="timeout_input"
           type="number"
           placeholder="Enter updating frequency in ms"
@@ -24,7 +22,6 @@
           autofocus
         />
       </label>
-      <button class="timeout_submit" type="submit" id="timeout_submit">Set timeout</button>
     </div>
   </body>
 </html>
