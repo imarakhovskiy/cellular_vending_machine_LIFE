@@ -1,6 +1,6 @@
 export default class Set {
   constructor(initValue = []) {
-    this.hold = initValue
+    this.hold = [...initValue.map(row => [...row])]
   }
 
   has(elem) {

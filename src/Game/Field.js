@@ -1,11 +1,11 @@
-import { createSquareMatrix, aliveNeighboursCount } from './helpers'
+import { createSquareMatrix, aliveNeighboursCount, getRandomInt } from './helpers'
 import CustomSet from './Set'
 
 export default class Field {
   constructor(size) {
     this.sizes = size
     this.gameField = createSquareMatrix(size)
-    this.gameFieldConfigurations = new CustomSet()
+    this.gameFieldConfigurations = new CustomSet([this.gameField])
     this.domNode = document.getElementById('game_area')
   }
 
@@ -46,13 +46,18 @@ export default class Field {
     ]
     this.gameFieldConfigurations.add(this.gameField)
   }
+  
+  initRandomField = () => {
+    this.gameField = this.gameField.map(row => row.map(() => Boolean(getRandomInt(1))))
+    this.gameFieldConfigurations.add(this.gameField)
+  }
 
   createGameAreaInDOM() {
     this.gameField.forEach(row => {
       let tr = document.createElement('tr')
       row.forEach(() => {
         let td = document.createElement('td')
-        td.style.cssText = 'background-color: white;'
+        td.style.cssText = 'background-color: #df1453;'
         td.classList.add('point')
         tr.append(td)
       })
@@ -68,7 +73,7 @@ export default class Field {
   updateGameAreaOnPage() {
     this.gameField.forEach((row, i) => {
       row.forEach((val, j) => {
-        this.domNode.children[i].children[j].style.backgroundColor = val ? 'black' : 'white'
+        this.domNode.children[i].children[j].style.backgroundColor = val ? 'white' : '#df1453'
       })
     })
   }

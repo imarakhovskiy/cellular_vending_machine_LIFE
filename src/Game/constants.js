@@ -1,5 +1,6 @@
 export const FIELD_SIZE = 15;
 export const GLIDER_SIZE = 3;
+export const DEFAULT_TIMEOUT_VALUE = 300
 
 export const GLIDER_STATES = [
   // ordered glider states
