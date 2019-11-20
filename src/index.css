@@ -14,12 +14,15 @@ code {
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .gameArea {
   border: 2px red solid;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .point {
@@ -28,4 +31,55 @@ code {
   border: 1px rgba(0, 0, 0, 0.2) solid;
   border-radius: 50%;
   margin: 2px;
+}
+
+.timeout-input__label {
+  font-size: 2rem;
+}
+
+.timeout__input {
+  height: 2.5rem;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin-top: 2rem;
+  outline: none;
+  border: 2px rgba(10, 10, 10, 1) solid;
+  border-radius: 10px;
+}
+
+.timeout__input:focus {
+}
+.timeout__input::-webkit-input-placeholder {
+  font-size: 17px;
+  opacity: 0.5;
+}
+.timeout__input::-moz-placeholder {
+  font-size: 16px;
+  opacity: 0.5;
+}
+.timeout__input:-ms-input-placeholder {
+  font-size: 16px;
+  opacity: 0.5;
+}
+.timeout__input:-moz-placeholder {
+  font-size: 16px;
+  opacity: 0.5;
+}
+
+.gameEndMessageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(256, 256, 256, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.gameEndMessage {
+  font-size: 22px;
 }

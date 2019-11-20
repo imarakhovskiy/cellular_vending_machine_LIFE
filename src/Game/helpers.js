@@ -15,6 +15,10 @@ export function isPositive(num) {
   return num >= 0
 }
 
+export function getValid(num) {
+  return !isNaN(num) && isPositive(num) ? +num : 0
+}
+
 export function calcNeighbourCoordinate(coordinate) {
   return isPositive(coordinate)
     ? coordinate < FIELD_SIZE
